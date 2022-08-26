@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="staticUser" class="com.atguigu.factory.UserFactory" factory-method="getUser"></bean>
+    <bean id="userFactory" class="com.atguigu.factory.UserFactory"></bean>
+    <bean id="instanceUser" class="com.atguigu.pojo.User" factory-bean="userFactory" factory-method="createUser"></bean>
+    <bean id="factoryBean" class="com.atguigu.factory.MyFactoryBean"/>
+    <bean id="parent" class="com.atguigu.pojo.User" abstract="true">
+        <property name="id" value="137"/>
+        <property name="age" value="33"/>
+        <property name="phone" value="13245"/>
+    </bean>
+
+    <bean id="kid" class="com.atguigu.pojo.User" parent="parent">
+        <property name="name" value="kid"/>
+        <property name="age" value="23"/>
+    </bean>
+
+    <bean id="kid1" class="com.atguigu.pojo.SonUser" parent="parent">
+        <property name="count" value="12"/>
+    </bean>
+
+    <bean id="A" class="com.atguigu.factory.A" depends-on="B, C"/>
+    <bean id="B" class="com.atguigu.factory.B"/>
+    <bean id="C" class="com.atguigu.factory.C"/>
+
+    <bean id="kk" class="com.atguigu.pojo.User" init-method="init" destroy-method="destroy" scope="prototype"/>
+
+    <bean id="car1" class="com.atguigu.pojo.Car">
+        <property name="type" value="four wheels"/>
+        <property name="carNo" value="3306"/>
+    </bean>
+
+    <bean id="autoUser" class="com.atguigu.pojo.User" autowire="constructor">
+        <property name="id" value="114"/>
+        <property name="name" value="autoUser"/>
+    </bean>
+
+    <bean id="myBeanPostProcessor" class="com.atguigu.processor.MyBeanPostProcessor"/>
+</beans>

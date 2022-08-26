@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="car" class="com.atguigu.pojo.Car">
+        <property name="name" value="sanya"/>
+        <property name="carNo" value="13234"/>
+    </bean>
+    <bean id="person" class="com.atguigu.pojo.Person">
+        <property name="id" value="#{10*10}"/>
+        <!--<property name="name" value="#{'Tom'}"/>-->
+        <!--<property name="name" value="#{car.noStaticFun()}"/>-->
+        <property name="name" value="#{T(com.atguigu.pojo.Car).staticFun()}"/>
+        <property name="phone" value="#{'123456'}"/>
+        <property name="salary" value="#{1e5}"/>
+        <property name="car" value="#{car}"/>
+    </bean>
+</beans>

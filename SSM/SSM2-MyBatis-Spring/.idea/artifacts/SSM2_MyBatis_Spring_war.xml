@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="SSM2-MyBatis-Spring:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>SSM2-MyBatis-Spring</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="pojo-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="SSM2-MyBatis-Spring:war exploded" />
+    </root>
+  </artifact>
+</component>

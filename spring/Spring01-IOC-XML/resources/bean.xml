@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+    <bean id="1" name="user1" class="com.atguigu.pojo.User" lazy-init="true" scope="singleton">
+        <property name="id" value="1"/>
+        <property name="age" value="12"/>
+        <property name="name" value="Tiger"/>
+        <property name="phone" value="123456"/>
+    </bean>
+
+    <bean id="2" name="user2" class="com.atguigu.pojo.User">
+        <constructor-arg name="id" value="2"/>
+        <constructor-arg name="age" value="13"/>
+        <constructor-arg name="name" value="leo"/>
+        <constructor-arg name="phone" value="345678"/>
+    </bean>
+
+    <bean id="3" name="user3" class="com.atguigu.pojo.User">
+        <constructor-arg index="0" value="3" type="java.lang.Integer"/>
+        <constructor-arg index="1" value = "Pumma" type="java.lang.String"/>
+        <constructor-arg index="2" value="1382424" type="java.lang.String"/>
+        <constructor-arg index="3" value="22" type="java.lang.Integer"/>
+    </bean>
+
+    <bean id="4" name="user4" class="com.atguigu.pojo.User" p:id="4" p:name="Bear" p:phone="12345" p:age="22"/>
+
+    <bean id="5" name="user5" class="com.atguigu.pojo.User">
+        <property name="id" value="5"/>
+        <property name="name">
+            <null></null>
+        </property>
+    </bean>
+
+    <bean id="01" name="car1" class="com.atguigu.pojo.Car">
+        <property name="type" value="RacingCar"/>
+        <property name="carNo" value="1234"/>
+    </bean>
+
+    <bean id="6" name="user6" class="com.atguigu.pojo.User">
+        <property name="id" value="6"/>
+        <property name="name" value="Elephang"/>
+        <property name="phone" value="132456"/>
+        <property name="age" value="21"/>
+        <property name="car" ref="01"/>
+    </bean>
+
+    <bean id="7" name="user7" class="com.atguigu.pojo.User">
+        <property name="id" value="7"/>
+        <property name="age" value="13"/>
+        <property name="phone" value="1324567"/>
+        <property name="name" value="Panther"/>
+        <property name="car">
+            <bean class="com.atguigu.pojo.Car">
+                <property name="carNo" value="13452"/>
+                <property name="type"  value="truck"/>
+            </bean>
+        </property>
+        <property name="car.type" value="limousin"/>
+    </bean>
+
+    <bean id="8" name="user8" class="com.atguigu.pojo.User">
+        <property name="id" value="8"/>
+        <property name="age" value="13"/>
+        <property name="phone" value="1324567"/>
+        <property name="name" value="Dragon"/>
+        <property name="car">
+            <bean class="com.atguigu.pojo.Car">
+                <property name="type" value="van"/>
+                <property name="carNo" value="12235"/>
+            </bean>
+        </property>
+        <property name="list">
+            <list>
+                <value>"Spring"</value>
+                <value>"Summer"</value>
+                <value>"Autumn"</value>
+                <value>"Winter"</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="9" name="user9" class="com.atguigu.pojo.User">
+        <property name="id" value="9"/>
+        <property name="age" value="21"/>
+        <property name="phone" value="1345"/>
+        <property name="name" value="Jason"/>
+        <property name="car">
+            <bean class="com.atguigu.pojo.Car">
+                <property name="carNo" value="1324"/>
+                <property name="type" value="moto"/>
+            </bean>
+        </property>
+        <property name="list">
+            <array>
+                <value>"East"</value>
+                <value>"West"</value>
+                <value>"South"</value>
+                <value>"North"</value>
+            </array>
+        </property>
+        <property name="map">
+            <!--<map key-type="java.lang.String" value-type="java.lang.Object">
+                <entry key="one" value="1"/>
+                <entry key="two" value="2"/>
+                <entry key="three" value="3"/>
+                <entry key="four" value="4"/>
+            </map>-->
+            <props>
+                <prop key="one">1</prop>
+                <prop key="two">2</prop>
+                <prop key="three">3</prop>
+                <prop key="four">4</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="10" name="user10" class="com.atguigu.pojo.User">
+        <property name="id" value="10"/>
+        <property name="name" value="Tim"/>
+        <property name="phone" value="1324"/>
+        <property name="age" value="32"/>
+        <property name="car">
+            <bean class="com.atguigu.pojo.Car">
+                <property name="type" value="minVan"/>
+                <property name="carNo" value="8888"/>
+            </bean>
+        </property>
+
+        <property name="list">
+            <list>
+                <value>Monday</value>
+                <value>Tuesday</value>
+                <value>Wednesday</value>
+                <value>Thursday</value>
+            </list>
+        </property>
+
+        <property name="map">
+            <map key-type="java.lang.String" value-type="java.lang.Object">
+                <entry key="one" value="1"/>
+                <entry key="two" value="2"/>
+                <entry key="three" value="3"/>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="Jan">1</prop>
+                <prop key="Feb">2</prop>
+                <prop key="Mar">3</prop>
+            </props>
+        </property>
+    </bean>
+
+    <util:list id="listId">
+        <value>North</value>
+        <value>East</value>
+        <value>West</value>
+        <value>South</value>
+    </util:list>
+
+    <util:map id="mapId">
+        <entry key="one" value="1"/>
+        <entry key="two" value="2"/>
+        <entry key="three" value="3"/>
+    </util:map>
+
+    <util:properties id="propId">
+        <prop key="Jan">1</prop>
+        <prop key="Feb">2</prop>
+        <prop key="March">3</prop>
+    </util:properties>
+
+    <bean id="11" name="user11" class="com.atguigu.pojo.User">
+        <property name="id" value="11"/>
+        <property name="phone" value="1235465"/>
+        <property name="age" value="33"/>
+        <property name="name" value="Jill"/>
+        <property name="car">
+            <bean class="com.atguigu.pojo.Car">
+                <property name="carNo" value="56666"/>
+                <property name="type" value="ThreeWheels"/>
+            </bean>
+        </property>
+        <property name="list" ref="listId"/>
+        <property name="map" ref="mapId"/>
+        <property name="properties" ref="propId"/>
+    </bean>
+
+</beans>

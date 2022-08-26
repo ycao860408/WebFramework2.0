@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.mapper.PassengerMapper">
+    <select id="queryPassengersByBusId" resultType="Passenger">
+        select `id`, `name`, `bus_id` from t_passenger where `bus_id` = #{id};
+    </select>
+
+    <select id="queryPassengerById" resultType="Passenger">
+        select `id`, `name`, `bus_id` from t_passenger where `id` = #{id}
+    </select>
+
+    <resultMap id="fromBusToPass" type="Passenger">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <association property="bus" javaType="Bus" select="com.atguigu.mapper.BusMapper.queryBusById" column="bus_id"></association>
+    </resultMap>
+    <select id="queryPassengerById2" resultMap="fromBusToPass">
+        select `id`, `name`, `bus_id` from t_passenger where `id` = #{id}
+    </select>
+
+    <select id="queryPassengerWithBusIdAndLikeName" resultType="Passenger">
+        select `id`, `name`, `bus_id` from t_passenger where `bus_id` = #{bid} or `name` like concat("%", #{name} ,"%")
+    </select>
+</mapper>

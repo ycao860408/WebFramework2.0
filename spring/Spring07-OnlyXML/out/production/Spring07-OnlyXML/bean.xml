@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <bean id="logUtils" class="com.atguigu.utils.LogUtils"/>
+    <bean id="kogUtils" class="com.atguigu.utils.KogUtils"/>
+    <bean id="calculator" class="com.atguigu.Service.Calculator"/>
+
+    <aop:config>
+        <aop:pointcut id="pointCut" expression="execution(* com.atguigu.Service.Calculator.*(..))"/>
+        <aop:aspect ref="logUtils" order="1">
+            <aop:before method="logBefore" pointcut-ref="pointCut"/>
+            <aop:after-returning method="logAfterReturning" pointcut-ref="pointCut" returning="result"/>
+            <aop:after method="logAfter" pointcut-ref="pointCut"/>
+            <aop:after-throwing method="logThrowing" pointcut-ref="pointCut" throwing="e"/>
+            <aop:around method="logAround" pointcut-ref="pointCut"/>
+        </aop:aspect>
+
+        <aop:aspect ref="kogUtils" order="2">
+            <aop:before method="logBefore" pointcut-ref="pointCut"/>
+            <aop:after-returning method="logAfterReturning" pointcut-ref="pointCut" returning="result"/>
+            <aop:after method="logAfter" pointcut-ref="pointCut"/>
+            <aop:after-throwing method="logThrowing" pointcut-ref="pointCut" throwing="e"/>
+            <aop:around method="logAround" pointcut-ref="pointCut"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

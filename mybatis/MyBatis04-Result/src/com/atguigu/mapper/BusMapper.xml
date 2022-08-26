@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.mapper.BusMapper">
+      <resultMap id="collectionMap" type="Bus">
+          <id property="id" column="id"/>
+          <result property="name" column="name"/>
+          <collection property="passengers" ofType="com.atguigu.pojo.Passenger">
+              <id property="id" column="pid"/>
+              <result property="name" column="pname"/>
+          </collection>
+      </resultMap>
+      <select id="queryBussByIdWithCollection" resultMap="collectionMap">
+          select t_bus.*, t_passenger.id pid, t_passenger.name pname
+          from t_bus
+                   left join
+               t_passenger
+               on t_bus.id = t_passenger.bus_id
+          where t_bus.id = #{id}
+      </select>
+
+      <resultMap id="twoStepCollection" type="Bus">
+          <id property="id" column="id"/>
+          <result property="name" column="name"/>
+          <collection property="passengers" ofType="Passenger" select="com.atguigu.mapper.PassengerMapper.queryPassengersByBusId" column="id"></collection>
+      </resultMap>
+      <select id="queryBussByIdWithTwoSteps" resultMap="twoStepCollection">
+          select `id`, `name` from t_bus where `id` = #{id}
+      </select>
+      <select id="queryBusById" resultType="Bus">
+          select `id`, `name` from t_bus where id = #{id};
+      </select>
+
+      <resultMap id="likeMap" type="Bus">
+          <id property="id" column="id"/>
+          <result property="name" column="name"/>
+          <collection property="passengers" ofType="Passenger" select="com.atguigu.mapper.PassengerMapper.queryPassengerWithBusIdAndLikeName"
+                      column= "{bid=id, name=name}"></collection>
+      </resultMap>
+      <select id="queryBusWithIdAndLikeName" resultMap="likeMap">
+          select `id`, `name` from t_bus where id = #{id}
+      </select>
+</mapper>

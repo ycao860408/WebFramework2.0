@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.mapper.StudentMapper">
+    <resultMap id="StudentMap1" type="Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="teacher.id" column="tid"/>
+        <result property="teacher.name" column="tname"/>
+    </resultMap>
+
+    <select id="queryStudentById" resultMap="StudentMap1">
+        select stu.id id, stu.name name, tea.id tid, tea.name tname
+        from t_student stu
+        left join
+            t_teacher tea
+        on stu.teacher_id = tea.id
+        where stu.id = #{id}
+    </select>
+
+    <resultMap id="StudentMap2" type="Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <association property="teacher" javaType="Teacher">
+            <id property="id" column="tid"/>
+            <result property="name" column="tname"/>
+        </association>
+    </resultMap>
+
+    <select id="queryStudAndTeaByIdWithAssociation" resultMap="StudentMap2">
+        select stu.id id, stu.name name, tea.id tid, tea.name tname
+        from t_student stu
+                 left join
+             t_teacher tea
+             on stu.teacher_id = tea.id
+        where stu.id = #{id}
+    </select>
+    <resultMap id="twoStepStudent" type="Student">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <association property="teacher" javaType="Teacher" select="com.atguigu.mapper.TeacherMapper.queryTeaById" column="teacher_id"></association>
+    </resultMap>
+    <select id="queryStuByTwoSteps" resultMap="twoStepStudent">
+        select `id`, `name`, `teacher_id` from t_student stu where stu.id = #{id}
+    </select>
+</mapper>
